@@ -35,8 +35,6 @@ promptButton.textContent = "Click me to change the grid";
 promptButton.style.marginTop = "10px";
 promptButton.setAttribute("id", "btn")
 container.appendChild(promptButton);
-console.log(promptButton.getAttribute("id"));
-
 
 promptButton.addEventListener('click', () => {
 
@@ -49,9 +47,9 @@ promptButton.addEventListener('click', () => {
             if (box.getAttribute("id") != "btn") box.remove();
         }
         
-        for (let i = 1; i <= userPrompt; i++) {
-            const box = document.createElement("div");
-            box.setAttribute("style", `box-sizing: border-box;
+        for (let i = 1; i <= userPrompt; i++) { 
+            const box = document.createElement("div"); //change this to a function
+            box.setAttribute("style", `box-sizing: border-box; 
               border: solid #5b6dcd 3px;
               width: 20px; height: 20px;
               flex-shrink: 0;`);
