@@ -18,14 +18,20 @@ function makeGrid(mContainer, gridNumber) {
   };
 };
 
+function randomRGB() {
+  let r = Math.floor(Math.random () * 256);
+  let g = Math.floor(Math.random () * 256);
+  let b = Math.floor(Math.random () * 256);
+
+  return `rgb(${r} ${g} ${b})`
+}
+
 function borderChangeColor(childrenPack) {
     for (let child of childrenPack) {
         child.addEventListener('mouseover', () => {
-            child.style.borderColor = "red";
+          let randColor = randomRGB();
+          child.style.borderColor = randColor;
         });    
-        child.addEventListener('mouseout', () => {
-            child.style.borderColor = "#5b6dcd";
-        });
     };
 };
 
@@ -34,7 +40,7 @@ function boxStyling(childrenBox) {
     border: solid #5b6dcd 3px;
     width: 20px; height: 20px;
     flex-shrink: 0;`);
-}
+};
 
 makeGrid(mainContainer, 16);
 
@@ -45,7 +51,7 @@ borderChangeColor(mainContainerChildren);
 const promptButton = document.createElement("button");
 promptButton.textContent = "Click me to change the grid";
 promptButton.style.marginTop = "10px";
-promptButton.setAttribute("id", "btn")
+promptButton.setAttribute("id", "btn");
 mainContainer.appendChild(promptButton);
 
 promptButton.addEventListener('click', () => {
