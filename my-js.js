@@ -5,33 +5,18 @@ mainContainer.setAttribute("style", `display: flex;
      flex-wrap: wrap;
       width: 960px;`)
 
-for (let i = 1; i <= 16; i++) { 
-  const previewSubCont = document.createElement("div");
-  previewSubCont.setAttribute("style", "display: flex; width: 960px");
-    for (let x = 1; x <= 16; x++) {
-      const previewSubContBox = document.createElement("div");
-      previewSubCont.appendChild(previewSubContBox);
-      boxStyling(previewSubContBox);
-    };
-  mainContainer.appendChild(previewSubCont);
+function makeGrid(mContainer, gridNumber) {
+  for (let i = 1; i <= gridNumber; i++) { 
+    const previewSubCont = document.createElement("div");
+    previewSubCont.setAttribute("style", "display: flex; width: 960px");
+      for (let x = 1; x <= gridNumber; x++) {
+        const previewSubContBox = document.createElement("div");
+        previewSubCont.appendChild(previewSubContBox);
+        boxStyling(previewSubContBox);
+      };
+    mContainer.appendChild(previewSubCont);
+  };
 };
-borderChangeColor(mainContainer.querySelectorAll("div"));
-
-const mainContainerChildren = mainContainer.querySelectorAll("div");
-
-// function makeGrid(mContainer) {
-//   for (let i = 1; i <= 16; i++) { 
-//     const previewSubCont = document.createElement("div");
-//     previewSubCont.setAttribute("style", "display: flex; width: 960px");
-//       for (let x = 1; x <= 16; x++) {
-//         const previewSubContBox = document.createElement("div");
-//         previewSubCont.appendChild(previewSubContBox);
-//         boxStyling(previewSubContBox);
-//       };
-//     mContainer.appendChild(previewSubCont);
-//   };
-//   borderChangeColor(mContainer.querySelectorAll("div"));
-// };
 
 function borderChangeColor(childrenPack) {
     for (let child of childrenPack) {
@@ -51,6 +36,10 @@ function boxStyling(childrenBox) {
     flex-shrink: 0;`);
 }
 
+makeGrid(mainContainer, 16);
+
+borderChangeColor(mainContainer.querySelectorAll("div"));
+const mainContainerChildren = mainContainer.querySelectorAll("div");
 borderChangeColor(mainContainerChildren);
 
 const promptButton = document.createElement("button");
@@ -68,20 +57,9 @@ promptButton.addEventListener('click', () => {
     else {
         for (let subCont of mainContainerChildren) {
             if (subCont.getAttribute("id") != "btn") subCont.remove();
-        }
-        
-        for (let i = 1; i <= userPrompt; i++) { 
-            const subContainer = document.createElement("div");
-            subContainer.setAttribute("style", "display: flex; width: 960px");
-              for (let x = 1; x <= userPrompt; x++) {
-                const subContBox = document.createElement("div");
-                subContainer.appendChild(subContBox);
-                boxStyling(subContBox);
-              };
-            mainContainer.appendChild(subContainer);
-          };
+        };
+        makeGrid(mainContainer, userPrompt);
         borderChangeColor(mainContainer.querySelectorAll("div"));
-
         mainContainer.appendChild(document.getElementById("btn"));
     }
 });
