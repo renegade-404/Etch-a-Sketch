@@ -3,7 +3,7 @@ document.body.appendChild(mainContainer);
 
 mainContainer.setAttribute("style", `display: flex;
      flex-wrap: wrap;
-      width: 960px;`)
+      width: 960px;`);
 
 function makeGrid(mContainer, gridNumber) {
   for (let i = 1; i <= gridNumber; i++) { 
@@ -24,13 +24,21 @@ function randomRGB() {
   let b = Math.floor(Math.random () * 256);
 
   return `rgb(${r} ${g} ${b})`
-}
+};
+
+function changeOpacity(x) {
+  let xStyles = window.getComputedStyle(x);
+  let xOpacity = xStyles.getPropertyValue("opacity");
+  xOpacity = ((+xOpacity) + 0.1);
+  if (x.style.opacity < 1) x.style.opacity = xOpacity;
+};
 
 function borderChangeColor(childrenPack) {
     for (let child of childrenPack) {
         child.addEventListener('mouseover', () => {
           let randColor = randomRGB();
           child.style.borderColor = randColor;
+          changeOpacity(child);
         });    
     };
 };
@@ -39,7 +47,7 @@ function boxStyling(childrenBox) {
   childrenBox.setAttribute("style", `box-sizing: border-box; 
     border: solid #5b6dcd 3px;
     width: 20px; height: 20px;
-    flex-shrink: 0;`);
+    flex-shrink: 0; opacity: 0`);
 };
 
 makeGrid(mainContainer, 16);
