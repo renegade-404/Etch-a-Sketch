@@ -1,21 +1,37 @@
-const container = document.createElement("div");
-document.body.appendChild(container);
+const mainContainer = document.createElement("div");
+document.body.appendChild(mainContainer);
 
-container.setAttribute("style", `display: flex;
+mainContainer.setAttribute("style", `display: flex;
      flex-wrap: wrap;
-      width: 220px;`)
+      width: 960px;`)
 
-for (let i = 1; i <= 55; i++) {
-  const box = document.createElement("div");
-  box.setAttribute("style", `box-sizing: border-box;
-    border: solid #5b6dcd 3px;
-    width: 20px; height: 20px;
-    flex-shrink: 0;`);
-  container.appendChild(box);
-}
+for (let i = 1; i <= 16; i++) { 
+  const previewSubCont = document.createElement("div");
+  previewSubCont.setAttribute("style", "display: flex; width: 960px");
+    for (let x = 1; x <= 16; x++) {
+      const previewSubContBox = document.createElement("div");
+      previewSubCont.appendChild(previewSubContBox);
+      boxStyling(previewSubContBox);
+    };
+  mainContainer.appendChild(previewSubCont);
+};
+borderChangeColor(mainContainer.querySelectorAll("div"));
 
-const containerChildren = container.querySelectorAll("div");
+const mainContainerChildren = mainContainer.querySelectorAll("div");
 
+// function makeGrid(mContainer) {
+//   for (let i = 1; i <= 16; i++) { 
+//     const previewSubCont = document.createElement("div");
+//     previewSubCont.setAttribute("style", "display: flex; width: 960px");
+//       for (let x = 1; x <= 16; x++) {
+//         const previewSubContBox = document.createElement("div");
+//         previewSubCont.appendChild(previewSubContBox);
+//         boxStyling(previewSubContBox);
+//       };
+//     mContainer.appendChild(previewSubCont);
+//   };
+//   borderChangeColor(mContainer.querySelectorAll("div"));
+// };
 
 function borderChangeColor(childrenPack) {
     for (let child of childrenPack) {
@@ -28,13 +44,20 @@ function borderChangeColor(childrenPack) {
     };
 };
 
-borderChangeColor(containerChildren)
+function boxStyling(childrenBox) {
+  childrenBox.setAttribute("style", `box-sizing: border-box; 
+    border: solid #5b6dcd 3px;
+    width: 20px; height: 20px;
+    flex-shrink: 0;`);
+}
+
+borderChangeColor(mainContainerChildren);
 
 const promptButton = document.createElement("button");
 promptButton.textContent = "Click me to change the grid";
 promptButton.style.marginTop = "10px";
 promptButton.setAttribute("id", "btn")
-container.appendChild(promptButton);
+mainContainer.appendChild(promptButton);
 
 promptButton.addEventListener('click', () => {
 
@@ -43,20 +66,22 @@ promptButton.addEventListener('click', () => {
     if (userPrompt >= 100) alert("Your number can't be greater than 99");
 
     else {
-        for (let box of containerChildren) {
-            if (box.getAttribute("id") != "btn") box.remove();
+        for (let subCont of mainContainerChildren) {
+            if (subCont.getAttribute("id") != "btn") subCont.remove();
         }
         
         for (let i = 1; i <= userPrompt; i++) { 
-            const box = document.createElement("div"); //change this to a function
-            box.setAttribute("style", `box-sizing: border-box; 
-              border: solid #5b6dcd 3px;
-              width: 20px; height: 20px;
-              flex-shrink: 0;`);
-            container.appendChild(box);
+            const subContainer = document.createElement("div");
+            subContainer.setAttribute("style", "display: flex; width: 960px");
+              for (let x = 1; x <= userPrompt; x++) {
+                const subContBox = document.createElement("div");
+                subContainer.appendChild(subContBox);
+                boxStyling(subContBox);
+              };
+            mainContainer.appendChild(subContainer);
           };
-        borderChangeColor(container.querySelectorAll("div"));
+        borderChangeColor(mainContainer.querySelectorAll("div"));
 
-        container.appendChild(document.getElementById("btn"));
+        mainContainer.appendChild(document.getElementById("btn"));
     }
 });
